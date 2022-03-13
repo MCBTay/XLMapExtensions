@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.IO;
+using HarmonyLib;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -18,16 +19,16 @@ namespace XLMapExtensions
         [Tooltip("This is the filename to write to disk when saving the downloaded image.")]
         public string downloadFilename;
 
-        private Collider boardCollider;
+        private Collider _boardCollider;
 
         private void Start()
         {
-            boardCollider = PlayerController.Instance.boardController.boardColliders[0];
+            _boardCollider = PlayerController.Instance.boardController.boardColliders[0];
         }
 
-        private void OnTriggerEnter(Collider c)
+        private void OnTriggerEnter(Collider collider)
         {
-            if (c != boardCollider) return;
+            if (collider != _boardCollider) return;
 
             if (string.IsNullOrEmpty(imageDownloadUrl)) return;
 
