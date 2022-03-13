@@ -72,7 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DownloadImageOnTrigger.cs" />
-    <Compile Include="PlayerCheckpoint.cs" />
+    <Compile Include="PlayerCheckpointOnTrigger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TeleportPlayerOnTrigger.cs" />
   </ItemGroup>
