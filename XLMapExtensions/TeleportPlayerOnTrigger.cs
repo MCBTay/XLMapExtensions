@@ -6,6 +6,7 @@ namespace XLMapExtensions
     [Serializable]
     public class TeleportPlayerOnTrigger : MonoBehaviour
     {
+        [Tooltip("The location to teleport the player to.")]
         public Transform LocationToTeleport;
         
         private Collider _boardCollider;
