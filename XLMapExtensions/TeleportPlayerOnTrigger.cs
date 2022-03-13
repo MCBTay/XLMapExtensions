@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace XLMapExtensions
 {
-    public class TeleportPlayer : MonoBehaviour
+    [Serializable]
+    public class TeleportPlayerOnTrigger : MonoBehaviour
     {
         public Transform LocationToTeleport;
         

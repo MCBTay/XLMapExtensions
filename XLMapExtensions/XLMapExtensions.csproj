@@ -72,8 +72,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DownloadImageOnTrigger.cs" />
+    <Compile Include="PlayerCheckpoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TeleportPlayer.cs" />
+    <Compile Include="TeleportPlayerOnTrigger.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
