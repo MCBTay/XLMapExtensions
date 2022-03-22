@@ -80,3 +80,9 @@ jobs:
     #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
     #    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     #  run: .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+    
+    - name: Upload XLMapExtensions.dll
+      uses: actions/upload-artifact@v2.2.2
+      with:
+        name: XLMapExtensions.dll
+        path: ${{env.GITHUB_WORKSPACE}}XLMapExtensions/bin/Release/XLMapExtensions.dll
