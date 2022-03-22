@@ -83,6 +83,7 @@
     <Compile Include="ItemCollectorManager.cs" />
     <Compile Include="PlayerCheckpointOnTrigger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetRandomObjectActive.cs" />
     <Compile Include="StopOnTrigger.cs" />
     <Compile Include="TeleportPlayerOnTrigger.cs" />
   </ItemGroup>
