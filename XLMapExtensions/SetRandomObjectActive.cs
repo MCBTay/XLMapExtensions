@@ -22,7 +22,12 @@ namespace XLMapExtensions
 
             var randomObjectIndex = Random.Range(0, GameObjects.Count);
 
-            GameObjects[randomObjectIndex].SetActive(Active);
+            var randomObject = GameObjects[randomObjectIndex];
+
+            randomObject.SetActive(Active);
+
+            var audioSource = randomObject.GetComponent<AudioSource>();
+            audioSource?.Play();
         }
     }
 }
