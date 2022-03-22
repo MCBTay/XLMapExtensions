@@ -27,6 +27,8 @@ namespace XLMapExtensions
 
             _skaterRigidbody.constraints = RigidbodyConstraints.FreezeAll;
             _boardRigidbody.constraints = RigidbodyConstraints.FreezeAll;
+
+            StartCoroutine(RemoveConstraints());
         }
 
         private IEnumerator RemoveConstraints()
