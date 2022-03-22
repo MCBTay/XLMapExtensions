@@ -87,8 +87,10 @@ namespace XLMapExtensions
 
         private GameObjectUnityEvent _itemCollectedManagerEvent;
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+
             if (_itemCollectedManagerEvent == null)
             {
                 _itemCollectedManagerEvent = new GameObjectUnityEvent();

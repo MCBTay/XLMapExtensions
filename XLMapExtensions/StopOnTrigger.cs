@@ -13,8 +13,10 @@ namespace XLMapExtensions
         private Rigidbody _skaterRigidbody;
         private Rigidbody _boardRigidbody;
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+
             _skaterRigidbody = PlayerController.Instance.skaterController.skaterRigidbody;
             _boardRigidbody = PlayerController.Instance.boardController.boardRigidbody;
         }

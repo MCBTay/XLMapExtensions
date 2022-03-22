@@ -8,7 +8,7 @@ namespace XLMapExtensions
     {
         protected Collider _boardCollider;
 
-        private void Start()
+        protected virtual void Start()
         {
             _boardCollider = PlayerController.Instance.boardController.boardColliders[0];
         }
