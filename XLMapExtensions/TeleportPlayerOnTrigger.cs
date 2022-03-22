@@ -4,18 +4,11 @@ using UnityEngine;
 namespace XLMapExtensions
 {
     [Serializable]
-    public class TeleportPlayerOnTrigger : MonoBehaviour
+    public class TeleportPlayerOnTrigger : BoardTriggerBase
     {
         [Tooltip("The location to teleport the player to.")]
         public Transform LocationToTeleport;
         
-        private Collider _boardCollider;
-
-        private void Start()
-        {
-            _boardCollider = PlayerController.Instance.boardController.boardColliders[0];
-        }
-
         private void OnTriggerEnter(Collider collider)
         {
             if (LocationToTeleport == null) return;

@@ -77,7 +77,7 @@ namespace XLMapExtensions
     }
 
     [Serializable]
-    public class ItemCollectedEvent : MonoBehaviour
+    public class ItemCollectedEvent : BoardTriggerBase
     {
         [Tooltip("A reference to the manager managing these items.")]
         public ItemCollectorManager Manager;
@@ -87,12 +87,8 @@ namespace XLMapExtensions
 
         private GameObjectUnityEvent _itemCollectedManagerEvent;
 
-        private Collider _boardCollider;
-
         private void Start()
         {
-            _boardCollider = PlayerController.Instance.boardController.boardColliders[0];
-
             if (_itemCollectedManagerEvent == null)
             {
                 _itemCollectedManagerEvent = new GameObjectUnityEvent();

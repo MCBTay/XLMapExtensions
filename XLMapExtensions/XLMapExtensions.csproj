@@ -79,6 +79,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoardTriggerBase.cs" />
     <Compile Include="DownloadImageOnTrigger.cs" />
     <Compile Include="ItemCollectorManager.cs" />
     <Compile Include="PlayerCheckpointOnTrigger.cs" />

@@ -5,18 +5,16 @@ using UnityEngine;
 namespace XLMapExtensions
 {
     [Serializable]
-    public class StopOnTrigger : MonoBehaviour
+    public class StopOnTrigger : BoardTriggerBase
     {
         [Tooltip("The number of seconds to constrain the skater/board rigidbodies.")]
         public int TimeToFreeze;
 
-        private Collider _boardCollider;
         private Rigidbody _skaterRigidbody;
         private Rigidbody _boardRigidbody;
 
         private void Start()
         {
-            _boardCollider = PlayerController.Instance.boardController.boardColliders[0];
             _skaterRigidbody = PlayerController.Instance.skaterController.skaterRigidbody;
             _boardRigidbody = PlayerController.Instance.boardController.boardRigidbody;
         }

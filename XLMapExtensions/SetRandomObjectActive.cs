@@ -7,20 +7,13 @@ using Random = UnityEngine.Random;
 namespace XLMapExtensions
 {
     [Serializable]
-    public class SetRandomObjectActive : MonoBehaviour
+    public class SetRandomObjectActive : BoardTriggerBase
     {
         [Tooltip("The list of game objects to potentially be set as active.")]
         public List<GameObject> GameObjects;
 
         [Tooltip("Check to set a random object active, uncheck to set a random object inactive.")]
         public bool Active = true;
-
-        private Collider _boardCollider;
-
-        private void Start()
-        {
-            _boardCollider = PlayerController.Instance.boardController.boardColliders[0];
-        }
 
         private void OnTriggerEnter(Collider collider)
         {

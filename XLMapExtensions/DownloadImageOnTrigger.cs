@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 namespace XLMapExtensions
 {
     [Serializable]
-    public class DownloadImageOnTrigger : MonoBehaviour
+    public class DownloadImageOnTrigger : BoardTriggerBase
     {
         [Tooltip("Enter the URL to download the image from.")]
         public string imageDownloadUrl;
@@ -18,13 +18,6 @@ namespace XLMapExtensions
 
         [Tooltip("This is the filename to write to disk when saving the downloaded image.")]
         public string downloadFilename;
-
-        private Collider _boardCollider;
-
-        private void Start()
-        {
-            _boardCollider = PlayerController.Instance.boardController.boardColliders[0];
-        }
 
         private void OnTriggerEnter(Collider collider)
         {
