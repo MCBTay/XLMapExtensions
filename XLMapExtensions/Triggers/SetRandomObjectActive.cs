@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace XLMapExtensions
+namespace XLMapExtensions.Triggers
 {
     [Serializable]
     public class SetRandomObjectActive : BoardTriggerBase

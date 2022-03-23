@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace XLMapExtensions
+namespace XLMapExtensions.Triggers
 {
     [Serializable]
     public class StopOnTrigger : BoardTriggerBase
