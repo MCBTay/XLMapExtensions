@@ -64,12 +64,9 @@ namespace XLMapExtensions
 
             _collectedItems.Add(item);
 
-            if (TextToUpdate != null)
-            {
-                TextToUpdate.SetText(CurrentStatusText);
-            }
+            TextToUpdate?.SetText(CurrentStatusText);
 
-            if (_itemsCollected >= NumberOfItemsToCollect)
+            if (_itemsCollected == NumberOfItemsToCollect)
             {
                 ItemsCollectedEvent.Invoke();
             }
