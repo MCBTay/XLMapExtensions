@@ -5,7 +5,7 @@ using HarmonyLib;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace XLMapExtensions
+namespace XLMapExtensions.Triggers
 {
     [Serializable]
     public class DownloadImageOnTrigger : BoardTriggerBase

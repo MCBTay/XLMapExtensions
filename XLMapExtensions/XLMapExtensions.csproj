@@ -93,14 +93,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BoardTriggerBase.cs" />
-    <Compile Include="DownloadImageOnTrigger.cs" />
-    <Compile Include="ItemCollectorManager.cs" />
-    <Compile Include="PlayerCheckpointOnTrigger.cs" />
+    <Compile Include="AimConstraintTargetController.cs" />
+    <Compile Include="Triggers\BoardTriggerBase.cs" />
+    <Compile Include="Triggers\DownloadImageOnTrigger.cs" />
+    <Compile Include="Triggers\ItemCollectorManager.cs" />
+    <Compile Include="Triggers\PlayerCheckpointOnTrigger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SetRandomObjectActive.cs" />
-    <Compile Include="StopOnTrigger.cs" />
-    <Compile Include="TeleportPlayerOnTrigger.cs" />
+    <Compile Include="Triggers\SetRandomObjectActive.cs" />
+    <Compile Include="Triggers\StopOnTrigger.cs" />
+    <Compile Include="Triggers\TeleportPlayerOnTrigger.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
