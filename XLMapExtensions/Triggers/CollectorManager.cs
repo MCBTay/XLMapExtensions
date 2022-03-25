@@ -10,7 +10,7 @@ namespace XLMapExtensions.Triggers
     public class GameObjectUnityEvent : UnityEvent<GameObject> { }
 
     [Serializable]
-    public class ItemCollectorManager : MonoBehaviour
+    public class CollectorManager : MonoBehaviour
     {
         [Tooltip("Name for the collector manager.  Helpful if you're using multiple of them.")]
         public string Name;
@@ -85,10 +85,10 @@ namespace XLMapExtensions.Triggers
     }
 
     [Serializable]
-    public class ItemCollectedEvent : BoardTriggerBase
+    public class ItemCollector : BoardTriggerBase
     {
         [Tooltip("A reference to the manager managing these items.")]
-        public ItemCollectorManager Manager;
+        public CollectorManager Manager;
 
         [Tooltip("Fired when item is collected but after we've fired event to manager.")]
         public GameObjectUnityEvent CollectedEvent;
