@@ -27,7 +27,11 @@ namespace XLMapExtensions
         [Tooltip("Use this to control the format of the status text.")]
         public string StatusTextFormat = "{0} of {1} collected...";
 
+        [Tooltip("A reference to the TMP Text object you'd like to have updated.")]
         public TMP_Text TextToUpdate;
+
+        [Tooltip("Toggle this on if you'd like to have the TextToUpdate get updated after collecting all items.")]
+        public bool UpdateStatusTextOnCompletion;
 
         private int _itemsCollected;
 
@@ -64,11 +68,18 @@ namespace XLMapExtensions
 
             _collectedItems.Add(item);
 
-            TextToUpdate?.SetText(CurrentStatusText);
-
             if (_itemsCollected == NumberOfItemsToCollect)
             {
                 ItemsCollectedEvent.Invoke();
+
+                if (UpdateStatusTextOnCompletion)
+                {
+                    TextToUpdate?.SetText(CurrentStatusText);
+                }
+            }
+            else
+            {
+                TextToUpdate?.SetText(CurrentStatusText);
             }
         }
     }
