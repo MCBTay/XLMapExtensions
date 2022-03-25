@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace XLMapExtensions
+namespace XLMapExtensions.Triggers
 {
     [Serializable]
     public class TeleportPlayerOnTrigger : BoardTriggerBase

@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace XLMapExtensions
+namespace XLMapExtensions.Triggers
 {
     [Serializable]
     public class GameObjectUnityEvent : UnityEvent<GameObject> { }
