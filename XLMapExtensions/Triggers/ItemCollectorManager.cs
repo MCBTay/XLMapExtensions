@@ -19,10 +19,10 @@ namespace XLMapExtensions.Triggers
         public int NumberOfItemsToCollect;
 
         [Tooltip("Fired when NumberOfItemsToCollect has been met.")]
-        public UnityEvent ItemsCollectedEvent;
+        public UnityEvent CompletedEvent;
 
         [Tooltip("Fired each time an item is collected.")]
-        public GameObjectUnityEvent ItemCollectedEvent;
+        public GameObjectUnityEvent CollectedEvent;
 
         [Tooltip("Use this to control the format of the status text.")]
         public string StatusTextFormat = "{0} of {1} collected...";
@@ -44,14 +44,14 @@ namespace XLMapExtensions.Triggers
 
             _collectedItems = new List<GameObject>();
 
-            if (ItemsCollectedEvent == null)
+            if (CompletedEvent == null)
             {
-                ItemsCollectedEvent = new UnityEvent();
+                CompletedEvent = new UnityEvent();
             }
 
-            if (ItemCollectedEvent == null)
+            if (CollectedEvent == null)
             {
-                ItemCollectedEvent = new GameObjectUnityEvent();
+                CollectedEvent = new GameObjectUnityEvent();
             }
 
             if (TextToUpdate != null)
@@ -64,13 +64,13 @@ namespace XLMapExtensions.Triggers
         {
             _itemsCollected++;
 
-            ItemCollectedEvent.Invoke(item);
+            CollectedEvent.Invoke(item);
 
             _collectedItems.Add(item);
 
             if (_itemsCollected == NumberOfItemsToCollect)
             {
-                ItemsCollectedEvent.Invoke();
+                CompletedEvent.Invoke();
 
                 if (UpdateStatusTextOnCompletion)
                 {
