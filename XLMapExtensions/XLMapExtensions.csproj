@@ -99,6 +99,7 @@
     <Compile Include="Triggers\CollectorManager.cs" />
     <Compile Include="Triggers\PlayerCheckpointOnTrigger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Triggers\RespawnOnTrigger.cs" />
     <Compile Include="Triggers\SetRandomObjectActive.cs" />
     <Compile Include="Triggers\StopOnTrigger.cs" />
     <Compile Include="Triggers\TeleportPlayerOnTrigger.cs" />
