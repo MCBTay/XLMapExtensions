@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 namespace XLMapExtensions.Triggers
 {
     [Serializable]
-    public class DownloadImageOnTrigger : BoardTriggerBase
+    public class GearDownloadOnTrigger : BoardTriggerBase
     {
         [Tooltip("Enter the URL to download the image from.")]
         public string imageDownloadUrl;

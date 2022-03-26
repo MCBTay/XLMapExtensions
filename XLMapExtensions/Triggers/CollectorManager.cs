@@ -10,7 +10,7 @@ namespace XLMapExtensions.Triggers
     public class GameObjectUnityEvent : UnityEvent<GameObject> { }
 
     [Serializable]
-    public class ItemCollectorManager : MonoBehaviour
+    public class CollectorManager : MonoBehaviour
     {
         [Tooltip("Name for the collector manager.  Helpful if you're using multiple of them.")]
         public string Name;
@@ -19,15 +19,19 @@ namespace XLMapExtensions.Triggers
         public int NumberOfItemsToCollect;
 
         [Tooltip("Fired when NumberOfItemsToCollect has been met.")]
-        public UnityEvent ItemsCollectedEvent;
+        public UnityEvent CompletedEvent;
 
         [Tooltip("Fired each time an item is collected.")]
-        public GameObjectUnityEvent ItemCollectedEvent;
+        public GameObjectUnityEvent CollectedEvent;
 
         [Tooltip("Use this to control the format of the status text.")]
         public string StatusTextFormat = "{0} of {1} collected...";
 
+        [Tooltip("A reference to the TMP Text object you'd like to have updated.")]
         public TMP_Text TextToUpdate;
+
+        [Tooltip("Toggle this on if you'd like to have the TextToUpdate get updated after collecting all items.")]
+        public bool UpdateStatusTextOnCompletion;
 
         private int _itemsCollected;
 
@@ -40,14 +44,14 @@ namespace XLMapExtensions.Triggers
 
             _collectedItems = new List<GameObject>();
 
-            if (ItemsCollectedEvent == null)
+            if (CompletedEvent == null)
             {
-                ItemsCollectedEvent = new UnityEvent();
+                CompletedEvent = new UnityEvent();
             }
 
-            if (ItemCollectedEvent == null)
+            if (CollectedEvent == null)
             {
-                ItemCollectedEvent = new GameObjectUnityEvent();
+                CollectedEvent = new GameObjectUnityEvent();
             }
 
             if (TextToUpdate != null)
@@ -60,27 +64,31 @@ namespace XLMapExtensions.Triggers
         {
             _itemsCollected++;
 
-            ItemCollectedEvent.Invoke(item);
+            CollectedEvent.Invoke(item);
 
             _collectedItems.Add(item);
 
-            if (TextToUpdate != null)
+            if (_itemsCollected == NumberOfItemsToCollect)
             {
-                TextToUpdate.SetText(CurrentStatusText);
-            }
+                CompletedEvent.Invoke();
 
-            if (_itemsCollected >= NumberOfItemsToCollect)
+                if (UpdateStatusTextOnCompletion)
+                {
+                    TextToUpdate?.SetText(CurrentStatusText);
+                }
+            }
+            else
             {
-                ItemsCollectedEvent.Invoke();
+                TextToUpdate?.SetText(CurrentStatusText);
             }
         }
     }
 
     [Serializable]
-    public class ItemCollectedEvent : BoardTriggerBase
+    public class ItemCollector : BoardTriggerBase
     {
         [Tooltip("A reference to the manager managing these items.")]
-        public ItemCollectorManager Manager;
+        public CollectorManager Manager;
 
         [Tooltip("Fired when item is collected but after we've fired event to manager.")]
         public GameObjectUnityEvent CollectedEvent;

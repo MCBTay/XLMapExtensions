@@ -6,7 +6,7 @@ using UnityEngine;
 namespace XLMapExtensions
 {
     [Serializable]
-    public class AimConstraintTargetController : MonoBehaviour
+    public class PlayerReference : MonoBehaviour
     {
         private void Update()
         {

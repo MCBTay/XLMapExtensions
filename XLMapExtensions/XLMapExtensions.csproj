@@ -93,13 +93,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AimConstraintTargetController.cs" />
+    <Compile Include="PlayerReference.cs" />
     <Compile Include="Triggers\BoardTriggerBase.cs" />
-    <Compile Include="Triggers\DownloadImageOnTrigger.cs" />
-    <Compile Include="Triggers\ItemCollectorManager.cs" />
+    <Compile Include="Triggers\GearDownloadOnTrigger.cs" />
+    <Compile Include="Triggers\CollectorManager.cs" />
     <Compile Include="Triggers\PlayerCheckpointOnTrigger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Triggers\RandomSpawnpoint.cs" />
+    <Compile Include="Triggers\RespawnOnTrigger.cs" />
     <Compile Include="Triggers\SetRandomObjectActive.cs" />
     <Compile Include="Triggers\StopOnTrigger.cs" />
     <Compile Include="Triggers\TeleportPlayerOnTrigger.cs" />
