@@ -4,10 +4,12 @@ using UnityEngine;
 namespace XLMapExtensions.Triggers
 {
     [Serializable]
-    public class RespawnOnTrigger : MonoBehaviour
+    public class RespawnOnTrigger : BoardTriggerBase
     {
         private void OnTriggerEnter(Collider collider)
         {
+            if (collider != _boardCollider) return;
+
             PlayerController.Instance.respawn.DoRespawn();
         }
     }
