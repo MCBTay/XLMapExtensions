@@ -19,6 +19,7 @@ namespace XLMapExtensions.Triggers
         {
             if (!GameObjects.Any()) return;
             if (collider != _boardCollider) return;
+            if (!CanBeFiredAgain()) return;
 
             var randomObjectIndex = Random.Range(0, GameObjects.Count);
 

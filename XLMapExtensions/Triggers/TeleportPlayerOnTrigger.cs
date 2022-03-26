@@ -13,6 +13,7 @@ namespace XLMapExtensions.Triggers
         {
             if (LocationToTeleport == null) return;
             if (collider != _boardCollider) return;
+            if (!CanBeFiredAgain()) return;
 
             PlayerController.Instance.respawn.SetSpawnPos(LocationToTeleport.position, LocationToTeleport.rotation);
             PlayerController.Instance.respawn.DoRespawn();
