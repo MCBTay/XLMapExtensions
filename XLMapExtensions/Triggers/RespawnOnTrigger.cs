@@ -9,6 +9,7 @@ namespace XLMapExtensions.Triggers
         private void OnTriggerEnter(Collider collider)
         {
             if (collider != _boardCollider) return;
+            if (!CanBeFiredAgain()) return;
 
             PlayerController.Instance.respawn.DoRespawn();
         }

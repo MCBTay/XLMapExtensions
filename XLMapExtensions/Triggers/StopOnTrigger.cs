@@ -24,6 +24,7 @@ namespace XLMapExtensions.Triggers
         private void OnTriggerEnter(Collider collider)
         {
             if (collider != _boardCollider) return;
+            if (!CanBeFiredAgain()) return;
 
             _skaterRigidbody.constraints = RigidbodyConstraints.FreezeAll;
             _boardRigidbody.constraints = RigidbodyConstraints.FreezeAll;

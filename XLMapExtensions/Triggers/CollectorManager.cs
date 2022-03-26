@@ -115,6 +115,7 @@ namespace XLMapExtensions.Triggers
         private void OnTriggerEnter(Collider collider)
         {
             if (collider != _boardCollider) return;
+            if (!CanBeFiredAgain()) return;
 
             _itemCollectedManagerEvent?.Invoke(collider.gameObject);
         }
@@ -122,7 +123,8 @@ namespace XLMapExtensions.Triggers
         private void OnTriggerExit(Collider collider)
         {
             if (collider != _boardCollider) return;
-            
+            if (!CanBeFiredAgain()) return;
+
             CollectedEvent.Invoke(collider.gameObject);
         }
     }
