@@ -59,6 +59,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>References\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>References\UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>References\UnityEngine.AudioModule.dll</HintPath>
@@ -94,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PlayerReference.cs" />
+    <Compile Include="TrackRigidbodyInReplay.cs" />
     <Compile Include="Triggers\BoardTriggerBase.cs" />
     <Compile Include="Triggers\GearDownloadOnTrigger.cs" />
     <Compile Include="Triggers\CollectorManager.cs" />
