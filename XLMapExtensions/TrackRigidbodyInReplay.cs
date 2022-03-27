@@ -61,6 +61,24 @@ namespace XLMapExtensions
             animation = gameObject.AddComponent<Animation>();
             animation.animatePhysics = true;
 
+            CreateAnimationCurves();
+            CreateAnimationClip();
+        }
+
+        private void CreateAnimationCurves()
+        {
+            xPosCurve = new AnimationCurve();
+            yPosCurve = new AnimationCurve();
+            zPosCurve = new AnimationCurve();
+
+            xRotCurve = new AnimationCurve();
+            yRotCurve = new AnimationCurve();
+            zRotCurve = new AnimationCurve();
+            wRotCurve = new AnimationCurve();
+        }
+
+        private void CreateAnimationClip()
+        {
             animationClip = new AnimationClip
             {
                 legacy = true,
@@ -95,6 +113,7 @@ namespace XLMapExtensions
             {
                 ResetRigidbody();
                 RecordFrame();
+                return;
             }
 
             if (GameStateMachine.Instance.CurrentState.GetType() != typeof(ReplayState)) return;
