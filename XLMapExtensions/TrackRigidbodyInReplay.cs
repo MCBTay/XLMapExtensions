@@ -50,6 +50,10 @@ namespace XLMapExtensions
         /// </summary>
         private Quaternion originalLocalRotation;
 
+        private Vector3 originalVelocity;
+
+        private Vector3 originalAngularVelocity;
+
         private void Awake()
         {
             frames = new List<Frame>();
@@ -62,7 +66,6 @@ namespace XLMapExtensions
             animation.animatePhysics = true;
 
             CreateAnimationCurves();
-            CreateAnimationClip();
         }
 
         private void CreateAnimationCurves()
@@ -77,24 +80,26 @@ namespace XLMapExtensions
             wRotCurve = new AnimationCurve();
         }
 
-        private void CreateAnimationClip()
+        private void Update()
         {
-            animationClip = new AnimationClip
+            switch (GameStateMachine.Instance.CurrentState)
             {
-                legacy = true,
-                name = gameObject.name
-            };
-
-            animationClip.SetCurve(string.Empty, typeof(Transform), "localPosition.x", xPosCurve);
-            animationClip.SetCurve(string.Empty, typeof(Transform), "localPosition.y", yPosCurve);
-            animationClip.SetCurve(string.Empty, typeof(Transform), "localPosition.z", zPosCurve);
-
-            animationClip.SetCurve(string.Empty, typeof(Transform), "localRotation.x", xRotCurve);
-            animationClip.SetCurve(string.Empty, typeof(Transform), "localRotation.y", yRotCurve);
-            animationClip.SetCurve(string.Empty, typeof(Transform), "localRotation.z", zRotCurve);
-            animationClip.SetCurve(string.Empty, typeof(Transform), "localRotation.w", wRotCurve);
+                case PlayState playState:
+                    ResetRigidbody();
+                    RecordFrame();
+                    break;
+                case ReplayState replayState:
+                    StoreRigidbodyState();
+                    SetAnimationState();
+                    break;
+            }
         }
 
+        /// <summary>
+        /// Checks for the rigidbody being kinematic.  If it is, we're transitioning from ReplayState and will
+        /// stop the animation from playing, reset the transform to it's original location recorded when transitioning
+        /// to ReplayState, and set the rigidbody to no longer be kinematic.
+        /// </summary>
         private void ResetRigidbody()
         {
             if (!rigidbody.isKinematic) return;
@@ -104,36 +109,10 @@ namespace XLMapExtensions
             transform.localPosition = originalLocalPosition;
             transform.localRotation = originalLocalRotation;
 
+            rigidbody.velocity = originalVelocity;
+            rigidbody.angularVelocity = originalAngularVelocity;
+
             rigidbody.isKinematic = false;
-        }
-
-        private void Update()
-        {
-            if (GameStateMachine.Instance.CurrentState.GetType() == typeof(PlayState))
-            {
-                ResetRigidbody();
-                RecordFrame();
-                return;
-            }
-
-            if (GameStateMachine.Instance.CurrentState.GetType() != typeof(ReplayState)) return;
-
-
-            if (!rigidbody.isKinematic)
-            {
-                originalLocalPosition = transform.localPosition;
-                originalLocalRotation = transform.localRotation;
-                rigidbody.isKinematic = true;
-            }
-
-            animation.AddClip(animationClip, animationClip.name);
-
-            var animationState = animation[animationClip.name];
-            if (!animation.isPlaying && ReplayEditorController.Instance.playbackController.TimeScale != 0.0)
-                animation.Play(animationClip.name);
-
-            animationState.time = ReplayEditorController.Instance.playbackController.CurrentTime;
-            animationState.speed = ReplayEditorController.Instance.playbackController.TimeScale;
         }
 
         private void RecordFrame()
@@ -144,7 +123,7 @@ namespace XLMapExtensions
                 nextRecordTime = PlayTime.time + 0.03333334f;
             else
                 nextRecordTime += 0.03333334f;
-            
+
             if (frames.Count >= numFramesToBuffer)
             {
                 var framesToRemove = frames.Count - numFramesToBuffer;
@@ -183,6 +162,64 @@ namespace XLMapExtensions
             yRotCurve.AddKey(frame.time, frame.rotation.y);
             zRotCurve.AddKey(frame.time, frame.rotation.z);
             wRotCurve.AddKey(frame.time, frame.rotation.w);
+        }
+
+        /// <summary>
+        /// Checks for the rigidbody being kinematic.  If it is not, we're transitioning to ReplayState and will
+        /// record the position/rotation of the rididbody such that we can reset it once we leave ReplayState.  Then,
+        /// sets the rigidbody to be kinematic.
+        /// </summary>
+        private void StoreRigidbodyState()
+        {
+            if (rigidbody.isKinematic) return;
+
+            originalLocalPosition = transform.localPosition;
+            originalLocalRotation = transform.localRotation;
+
+            originalVelocity = rigidbody.velocity;
+            originalAngularVelocity = rigidbody.angularVelocity;
+            
+            rigidbody.isKinematic = true;
+        }
+
+        private void SetAnimationState()
+        {
+            CreateAnimationClip();
+
+            var playbackController = ReplayEditorController.Instance.playbackController;
+
+            var animationState = animation[animationClip.name];
+            if (!animation.isPlaying && playbackController.TimeScale != 0.0)
+                animation.Play(animationClip.name);
+
+            animationState.time = playbackController.CurrentTime;
+            animationState.speed = playbackController.TimeScale;
+        }
+
+        /// <summary>
+        /// Creates the initial animation clip, assigning the 7 curves to it.
+        /// </summary>
+        private void CreateAnimationClip()
+        {
+            if (animationClip != null)
+                animation.RemoveClip(animationClip);
+
+            animationClip = new AnimationClip
+            {
+                legacy = true,
+                name = gameObject.name
+            };
+
+            animationClip.SetCurve(string.Empty, typeof(Transform), "localPosition.x", xPosCurve);
+            animationClip.SetCurve(string.Empty, typeof(Transform), "localPosition.y", yPosCurve);
+            animationClip.SetCurve(string.Empty, typeof(Transform), "localPosition.z", zPosCurve);
+
+            animationClip.SetCurve(string.Empty, typeof(Transform), "localRotation.x", xRotCurve);
+            animationClip.SetCurve(string.Empty, typeof(Transform), "localRotation.y", yRotCurve);
+            animationClip.SetCurve(string.Empty, typeof(Transform), "localRotation.z", zRotCurve);
+            animationClip.SetCurve(string.Empty, typeof(Transform), "localRotation.w", wRotCurve);
+
+            animation.AddClip(animationClip, animationClip.name);
         }
     }
 }
