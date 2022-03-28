@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace XLMapExtensions.Triggers
+namespace XLMapExtensions
 {
     [Serializable]
     public class RandomSpawnpoint : MonoBehaviour
