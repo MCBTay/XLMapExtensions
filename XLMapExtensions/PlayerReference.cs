@@ -27,6 +27,7 @@ namespace XLMapExtensions
         [Tooltip("Check this to update the target game object's rotation as well as position.")]
         public bool UpdateRotation;
 
+        private static string PlaybackSkaterRoot = "Playback Skater Root";
         private static string SkaterRoot = "NewSkater/Skater_Joints/Skater_root";
         private static string SkaterPelvis = $"{SkaterRoot}/Skater_pelvis";
         private static string SkaterSpine2 = $"{SkaterPelvis}/Skater_Spine/Skater_Spine1/Skater_Spine2";
@@ -41,55 +42,61 @@ namespace XLMapExtensions
 
         private void Update()
         {
+            gameObject.transform.position = GetReferencePosition();
 
-            // replay doesn't work, needs `Playback Skater Root` in front of find path
+            if (UpdateRotation)
+            {
+                gameObject.transform.rotation = GetReferenceRotation();
+            }
+        }
+
+        private Vector3 GetReferencePosition()
+        {
+            return GetTransform()?.position ?? Vector3.up;
+        }
+
+        
+        private Quaternion GetReferenceRotation()
+        {
+            return GetTransform()?.rotation ?? Quaternion.identity;
+        }
+
+        private Transform GetTransform()
+        {
             var transformToUse = GameStateMachine.Instance.CurrentState.GetType() == typeof(ReplayState)
                 ? ReplayEditorController.Instance.transform
                 : PlayerController.Instance.transform;
 
-            gameObject.transform.position = GetReferencePosition(transformToUse);
-
-            if (UpdateRotation)
-            {
-                gameObject.transform.rotation = GetReferenceRotation(transformToUse);
-            }
+            var searchPath = GetSearchPath();
+            
+            return string.IsNullOrEmpty(searchPath) ? null : transformToUse.Find(searchPath);
         }
 
-        private Vector3 GetReferencePosition(Transform topLevelTransform)
+        private string GetSearchPath()
         {
-            switch (Target)
-            {
-                case TargetType.SkaterHips: return topLevelTransform.Find(SkaterPelvis).position;
-                case TargetType.SkaterChest: return topLevelTransform.Find(SkaterSpine2).position;
-                case TargetType.SkaterHead: return topLevelTransform.Find(SkaterHead).position;
-                case TargetType.Skateboard: return topLevelTransform.Find(Skateboard).position;
-                case TargetType.BackTruck: return topLevelTransform.Find(BackTruckHanger).position;
-                case TargetType.FrontTruck: return topLevelTransform.Find(FrontTruckHanger).position;
-                case TargetType.BackTruckWheel1: return topLevelTransform.Find(Wheel1).position;
-                case TargetType.BackTruckWheel2: return topLevelTransform.Find(Wheel2).position;
-                case TargetType.FrontTruckWheel3: return topLevelTransform.Find(Wheel3).position;
-                case TargetType.FrontTruckWheel4: return topLevelTransform.Find(Wheel4).position;
-                default: return Vector3.up;
-            }
-        }
+            var searchPath = string.Empty;
 
-        
-        private Quaternion GetReferenceRotation(Transform topLevelTransform)
-        {
             switch (Target)
             {
-                case TargetType.SkaterHips: return topLevelTransform.Find(SkaterPelvis).rotation;
-                case TargetType.SkaterChest: return topLevelTransform.Find(SkaterSpine2).rotation;
-                case TargetType.SkaterHead: return topLevelTransform.Find(SkaterHead).rotation;
-                case TargetType.Skateboard: return topLevelTransform.Find(Skateboard).rotation;
-                case TargetType.BackTruck: return topLevelTransform.Find(BackTruckHanger).rotation;
-                case TargetType.FrontTruck: return topLevelTransform.Find(FrontTruckHanger).rotation;
-                case TargetType.BackTruckWheel1: return topLevelTransform.Find(Wheel1).rotation;
-                case TargetType.BackTruckWheel2: return topLevelTransform.Find(Wheel2).rotation;
-                case TargetType.FrontTruckWheel3: return topLevelTransform.Find(Wheel3).rotation;
-                case TargetType.FrontTruckWheel4: return topLevelTransform.Find(Wheel4).rotation;
-                default: return Quaternion.identity;
+                case TargetType.SkaterHips: searchPath = SkaterPelvis; break;
+                case TargetType.SkaterChest: searchPath = SkaterSpine2; break;
+                case TargetType.SkaterHead: searchPath = SkaterHead; break;
+                case TargetType.Skateboard: searchPath = Skateboard; break;
+                case TargetType.BackTruck: searchPath = BackTruckHanger; break;
+                case TargetType.FrontTruck: searchPath = FrontTruckHanger; break;
+                case TargetType.BackTruckWheel1: searchPath = Wheel1; break;
+                case TargetType.BackTruckWheel2: searchPath = Wheel2; break;
+                case TargetType.FrontTruckWheel3: searchPath = Wheel3; break;
+                case TargetType.FrontTruckWheel4: searchPath = Wheel4; break;
+                default: searchPath = string.Empty; break;
             }
+
+            if (GameStateMachine.Instance.CurrentState.GetType() == typeof(ReplayState))
+            {
+                searchPath = $"{PlaybackSkaterRoot}/{searchPath}";
+            }
+
+            return searchPath;
         }
     }
 }
