@@ -104,7 +104,6 @@
     <Compile Include="Triggers\PlayerCheckpointOnTrigger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomSpawnpoint.cs" />
-    <Compile Include="Triggers\RandomSpawnpoint.cs" />
     <Compile Include="Triggers\RandomTeleportOnTrigger.cs" />
     <Compile Include="Triggers\RespawnOnTrigger.cs" />
     <Compile Include="Triggers\SetRandomObjectActive.cs" />
