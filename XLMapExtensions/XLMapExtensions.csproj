@@ -96,6 +96,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DisableInReplay.cs" />
     <Compile Include="PlayerReference.cs" />
     <Compile Include="TrackRigidbodyInReplay.cs" />
     <Compile Include="Triggers\BoardTriggerBase.cs" />
