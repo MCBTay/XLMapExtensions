@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace XLMapExtensions
 {
@@ -9,13 +10,12 @@ namespace XLMapExtensions
     {
         public GameObject spawnpoint;
         public List<Transform> spawnpointList = new List<Transform>();
-        private int randomNumber;
 
         void Awake()
         {
             if (spawnpointList.Count == 0) return;
             
-            randomNumber = UnityEngine.Random.Range(0, (spawnpointList.Count));
+            var randomNumber = Random.Range(0, (spawnpointList.Count));
             spawnpoint.transform.position = spawnpointList[randomNumber].position;
         }
     }
