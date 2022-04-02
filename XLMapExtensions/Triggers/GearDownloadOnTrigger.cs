@@ -31,6 +31,11 @@ namespace XLMapExtensions.Triggers
 
         private IEnumerator DownloadImageCoroutine()
         {
+            var destinationPath = GetDestinationPath();
+            var destinationFileName = Path.Combine(destinationPath, downloadFilename);
+
+            if (File.Exists(destinationFileName)) yield break;
+
             using (var request = UnityWebRequestTexture.GetTexture(imageDownloadUrl))
             {
                 yield return request.SendWebRequest();
@@ -42,10 +47,7 @@ namespace XLMapExtensions.Triggers
 
                 var bytes = textureDownloadHandler.texture.EncodeToPNG();
 
-                var destinationPath = GetDestinationPath();
                 if (!Directory.Exists(destinationPath)) Directory.CreateDirectory(destinationPath);
-
-                var destinationFileName = Path.Combine(destinationPath, downloadFilename);
 
                 File.WriteAllBytes(destinationFileName, bytes);
 
