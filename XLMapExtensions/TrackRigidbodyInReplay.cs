@@ -202,7 +202,10 @@ namespace XLMapExtensions
         private void CreateAnimationClip()
         {
             if (animationClip != null)
+            {
                 animation.RemoveClip(animationClip);
+                Destroy(animationClip);
+            }
 
             animationClip = new AnimationClip
             {
