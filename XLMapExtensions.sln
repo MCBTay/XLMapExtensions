@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.32014.148
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33214.272
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLMapExtensions", "XLMapExtensions\XLMapExtensions.csproj", "{861F9CCF-EB8D-4B30-B729-94E4CD721AC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{68DA1184-C1F2-473D-A783-0B494D9E5C51}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\source\repos\UiOnTrigger\UiOnTrigger\Class1.cs = ..\..\..\source\repos\UiOnTrigger\UiOnTrigger\Class1.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
