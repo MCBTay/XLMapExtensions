@@ -28,7 +28,7 @@ jobs:
         fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
         
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v1.8.2
+      uses: actions/setup-dotnet@v3.0.3
       with:
         dotnet-version: 5.0.x
         
@@ -87,7 +87,7 @@ jobs:
       run: .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
     
     - name: Upload XLMapExtensions.dll
-      uses: actions/upload-artifact@v2.2.2
+      uses: actions/upload-artifact@v3.1.2
       with:
         name: XLMapExtensions.dll
         path: ${{env.GITHUB_WORKSPACE}}XLMapExtensions/bin/Release/XLMapExtensions.dll
