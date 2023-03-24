@@ -74,6 +74,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>References\UnityEngine.ImageConversionModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>References\UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>References\UnityEngine.PhysicsModule.dll</HintPath>
@@ -96,6 +99,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CountdownTimer.cs" />
+    <Compile Include="UiOnKeycode.cs" />
     <Compile Include="DisableInReplay.cs" />
     <Compile Include="PlayerReference.cs" />
     <Compile Include="TrackRigidbodyInReplay.cs" />
